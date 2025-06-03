@@ -24,9 +24,9 @@ export type Paginator = {
 
 export type PaginationParams = {
   page: string | 1;
-  limit: string | undefined;
-  keyword: string | "";
-  slug: string | undefined;
-  sorttype: string | undefined;
-  sortby: string | undefined;
+  limit?: string | undefined;
+  keyword?: string | "";
+  slug?: string | undefined;
+  sorttype?: string | undefined;
+  sortby?: string | undefined;
 };

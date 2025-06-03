@@ -3,9 +3,9 @@ import SideNav from "../components/nav/SideNav";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="flex h-screen w-full overflow-hidden">
+        <div className="flex min-h-screen w-full">
             {/* Side navbar */}
-            <div className="w-64 h-full sticky top-0 flex-shrink-0">
+            <div className="w-64 h-screen sticky top-0 flex-shrink-0">
                 <SideNav />
             </div>
             {/* children */}
