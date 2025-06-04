@@ -22,11 +22,20 @@ export type Paginator = {
   next: number;
 };
 
-export type PaginationParams = {
-  page: string | 1;
-  limit: string | undefined;
-  keyword: string | "";
-  slug: string | undefined;
-  sorttype: string | undefined;
-  sortby: string | undefined;
-};
+export class PaginationParams {
+  page: string | 1 = 1;
+  limit?: string | undefined;
+  keyword?: string | "";
+  slug?: string | undefined;
+  sorttype?: string | undefined;
+  sortby?: string | undefined;
+}
+
+export class ParamsFilterService extends PaginationParams {
+  category?: string;
+  subCategory?: string;
+  lowestPrice?: number;
+  highestPrice?: number;
+  rating?: number;
+  type?: "male" | "female" | "unisex";
+}

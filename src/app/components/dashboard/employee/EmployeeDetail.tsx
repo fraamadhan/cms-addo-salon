@@ -33,18 +33,19 @@ export const EmployeeDetail = () => {
     const mutation = useUpdateEmployee({
         onSuccess: (data) => {
             if (data?.status !== HttpStatusCode.Ok) {
-                toast.error(data.message || "Gagal memperbarui data pegawai")
+                toast.error(data.message[0] || "Gagal memperbarui data pegawai")
             }
             else {
                 toast.success("Berhasil memperbarui data pegawai", {
                     duration: 1500,
                 })
                 queryClient.invalidateQueries({ queryKey: ["getEmployees"] })
+                queryClient.invalidateQueries({ queryKey: ["getEmployee"] })
                 router.replace('/dashboard/employee')
             }
         },
         onError: (error) => {
-            toast.error(error.message || "Gagal memperbarui data pegawai")
+            toast.error(error.message[0] || "Gagal memperbarui data pegawai")
         }
     })
 

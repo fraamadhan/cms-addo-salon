@@ -18,7 +18,6 @@ export const useLogin = ({ onSuccess, onError }: StateStatus) => {
           secure: !!process.env.NEXT_PUBLIC_TOKEN_SECURE,
         });
       }
-      console.log(response.data.data);
 
       return response.data;
     },

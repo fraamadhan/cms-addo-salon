@@ -3,6 +3,7 @@ import { EMPLOYEE_ENDPOINT } from "@/lib/endpoints";
 import { EmployeeItemResponse } from "@/types/employee-type";
 import { PaginationParams, StateStatus } from "@/types/general";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 export const useGetEmployees = (token: string, queryParams: PaginationParams) => {
   return useQuery({
@@ -27,7 +28,7 @@ export const useGetEmployees = (token: string, queryParams: PaginationParams) =>
 
 export const useGetEmployee = (token: string, id: string) => {
   return useQuery({
-    queryKey: ["getEmployees", id],
+    queryKey: ["getEmployee", id],
     queryFn: async () => {
       const response = await axiosInstance.get(`${EMPLOYEE_ENDPOINT}/${id}`, {
         headers: {
@@ -44,13 +45,21 @@ export const useGetEmployee = (token: string, id: string) => {
 export const useUpdateEmployee = ({ onSuccess, onError }: StateStatus) => {
   return useMutation({
     mutationFn: async ({ token, id, body }: { token: string; id: string; body: EmployeeItemResponse }) => {
-      const response = await axiosInstance.patch(`${EMPLOYEE_ENDPOINT}/${id}`, body, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      try {
+        const response = await axiosInstance.patch(`${EMPLOYEE_ENDPOINT}/${id}`, body, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      return response.data;
+        return response.data;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          if (error instanceof AxiosError) {
+            throw new Error(error.response?.data?.message || "Gagal memperbarui data pegawai");
+          }
+        }
+      }
     },
     onSuccess,
     onError,
