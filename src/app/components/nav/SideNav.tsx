@@ -24,7 +24,7 @@ const SideNav = () => {
         { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
         { href: "/dashboard/employee", icon: User2Icon, label: "Pegawai" },
         { href: "/dashboard/user", icon: User2Icon, label: "Pengguna" },
-        { href: "/dashboard/product", icon: FolderArchive, label: "Layanan" },
+        { href: "/dashboard/service", icon: FolderArchive, label: "Layanan" },
         { href: "/dashboard/order", icon: ShoppingCartIcon, label: "Pesanan" },
         { href: "/dashboard/transaction", icon: ScrollTextIcon, label: "Transaksi" },
     ];

@@ -98,7 +98,12 @@ export const UserGeneralInformation = (
             <form className="w-full flex flex-col p-7 border shadow-xl rounded-xl gap-y-3" onSubmit={handleSubmit(onSubmit)}>
                 {Object.keys(errors).length > 0 && (
                     <div className="text-red-500">
-                        Form has errors: {JSON.stringify(errors)}
+                        Masukkan ada yang salah:
+                        <ul className="list-disc ml-5">
+                            {Object.entries(errors).map(([key, value]) => (
+                                <li key={key}>{key}: {value?.message as string}</li>
+                            ))}
+                        </ul>
                     </div>
                 )}
                 {/* Image */}
@@ -203,7 +208,7 @@ export const UserGeneralInformation = (
 
                     {/* gender */}
                     <div className="flex items-center gap-x-3">
-                        <label htmlFor="role" className="w-[10rem]">
+                        <label htmlFor="gender" className="w-[10rem]">
                             Jenis kelamin
                         </label>
                         {
@@ -281,7 +286,7 @@ export const UserGeneralInformation = (
 
                     {/* is verified */}
                     <div className="flex items-center gap-x-3">
-                        <label htmlFor="role" className="w-[10rem]">
+                        <label htmlFor="is_verified" className="w-[10rem]">
                             Sudah Diverifikasi
                         </label>
                         {

@@ -28,7 +28,7 @@ export const useGetUser = (token: string, id: string) => {
   return useQuery({
     queryKey: ["getUser", id],
     queryFn: async () => {
-      const response = await axiosInstance.get(`${USER_ENDPOINT}${id}`, {
+      const response = await axiosInstance.get(`${USER_ENDPOINT}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -44,7 +44,7 @@ export const useCreateUser = ({ onSuccess, onError }: StateStatus) => {
   return useMutation({
     mutationFn: async ({ token, body }: { token: string; body: FormData }) => {
       try {
-        const response = await axiosInstance.post(`${USER_ENDPOINT}cms`, body, {
+        const response = await axiosInstance.post(`${USER_ENDPOINT}/cms`, body, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -68,7 +68,7 @@ export const useUpdateUser = ({ onSuccess, onError }: StateStatus) => {
   return useMutation({
     mutationFn: async ({ token, id, body }: { token: string; id: string; body: FormData | UpdatePasswordUser }) => {
       try {
-        const response = await axiosInstance.patch(`${USER_ENDPOINT}${id}`, body, {
+        const response = await axiosInstance.patch(`${USER_ENDPOINT}/${id}`, body, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -91,7 +91,7 @@ export const useUpdateUser = ({ onSuccess, onError }: StateStatus) => {
 export const useDeleteUser = ({ onSuccess, onError }: StateStatus) => {
   return useMutation({
     mutationFn: async ({ token, id }: { token: string; id: string }) => {
-      const response = await axiosInstance.delete(`${USER_ENDPOINT}${id}`, {
+      const response = await axiosInstance.delete(`${USER_ENDPOINT}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

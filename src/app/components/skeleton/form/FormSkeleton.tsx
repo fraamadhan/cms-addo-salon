@@ -80,3 +80,30 @@ export const PasswordSectionSkeleton = () => {
         </div>
     );
 };
+
+export const Skeleton = ({ className = "" }: { className?: string }) => (
+    <div className={`bg-gray-200 animate-pulse ${className}`} />
+);
+
+export const ServiceFormSkeleton = () => {
+    return (
+        <div className="w-full flex flex-col p-7 border shadow-xl rounded-xl gap-y-4">
+            <div className="flex flex-col items-center justify-center w-full gap-y-3">
+                <Skeleton className="w-48 h-48 rounded-full" />
+                <Skeleton className="w-[8rem] h-10 rounded-md" />
+            </div>
+
+            {[...Array(7)].map((_, i) => (
+                <div key={i} className="flex items-center gap-x-3">
+                    <Skeleton className="w-[10rem] h-6" />
+                    <Skeleton className="w-[20rem] h-10 rounded-lg" />
+                </div>
+            ))}
+
+            <div className="flex justify-end gap-2 mt-3 w-full">
+                <Skeleton className="w-[15rem] h-10 rounded-md" />
+                <Skeleton className="w-[15rem] h-10 rounded-md" />
+            </div>
+        </div>
+    );
+}
