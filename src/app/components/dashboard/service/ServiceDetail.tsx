@@ -61,7 +61,7 @@ const ServiceDetail = () => {
             }
         },
         onError: (error) => {
-            toast.error(error.message || "Gagal memperbarui data pengguna");
+            toast.error(error.message || "Gagal memperbarui data layanan");
             return;
         }
     })

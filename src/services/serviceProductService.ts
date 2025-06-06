@@ -44,9 +44,7 @@ export const useCreateService = ({ onSuccess, onError }: StateStatus) => {
         return response.data;
       } catch (error) {
         if (error instanceof AxiosError) {
-          if (error instanceof AxiosError) {
-            throw new Error(error.response?.data?.message || "Gagal menambah data layanan");
-          }
+          throw new Error(error.response?.data?.message || "Gagal menambah data layanan");
         }
       }
     },

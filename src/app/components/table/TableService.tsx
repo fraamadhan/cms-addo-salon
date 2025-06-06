@@ -35,7 +35,7 @@ export const TableService = (
         },
         onError: (error) => {
             setSelectedService(null);
-            toast.error(error.message || "Gagal menghapus data pengguna");
+            toast.error(error.message || "Gagal menghapus data layanan");
             return;
         }
     })

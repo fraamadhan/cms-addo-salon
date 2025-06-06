@@ -39,3 +39,10 @@ export class ParamsFilterService extends PaginationParams {
   rating?: number;
   type?: "male" | "female" | "unisex";
 }
+
+export class TransactionQueryParams extends PaginationParams {
+  orderStatus?: string | undefined | null;
+  reservationDate?: string | undefined | null;
+  startDate?: string | undefined | null;
+  endDate?: string | undefined | null;
+}

@@ -77,7 +77,6 @@ export const UserDetail = () => {
             }
         },
         onError: (error) => {
-            console.log(error)
             toast.error(error.message || "Gagal memperbarui data pengguna")
             return;
         }
