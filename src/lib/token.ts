@@ -17,7 +17,7 @@ export const jwtTokenDecode = (token: string) => {
   try {
     return jwtDecode(token);
   } catch (error) {
-    console.log("Gagal decode token: ", error);
+    throw error;
   }
 };
 

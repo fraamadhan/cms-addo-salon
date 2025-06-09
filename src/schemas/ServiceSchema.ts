@@ -9,7 +9,7 @@ export const ServiceSchema = z.object({
   }),
   description: z
     .string({
-      required_error: "Email pengguna harus diisi berupa email",
+      required_error: "Deskripsi harus diisi",
     })
     .max(1500, "Maksimal deskripsi produk 1500 karakter"),
   estimation: z

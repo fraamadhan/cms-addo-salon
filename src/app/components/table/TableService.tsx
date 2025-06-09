@@ -35,7 +35,7 @@ export const TableService = (
         },
         onError: (error) => {
             setSelectedService(null);
-            toast.error(error.message || "Gagal menghapus data pengguna");
+            toast.error(error.message || "Gagal menghapus data layanan");
             return;
         }
     })
@@ -55,6 +55,17 @@ export const TableService = (
                         </tr>
                     </thead>
                     <tbody>
+                        {
+                            services?.length === 0 && (
+                                <tr>
+                                    <td colSpan={6} >
+                                        <div className="flex items-center justify-center w-full min-h-[20rem]">
+                                            <p className="text-gray-400 text-lg">Data layanan tidak dapat ditemukan</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+                        }
                         {
                             services?.map((service: ServiceResponseItem, idx: number) => (
                                 <TableServiceItem key={`${service._id} - ${startIndex + idx + 1}`} onDelete={() => openModal(service)} service={service} idx={startIndex + idx + 1} />

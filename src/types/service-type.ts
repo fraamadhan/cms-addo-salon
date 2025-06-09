@@ -50,3 +50,8 @@ export type ServiceDetailResponseItem = {
   type: string;
   assetRef: string;
 };
+
+export type SelectServiceItem = {
+  _id: string;
+  name: string;
+};

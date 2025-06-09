@@ -26,6 +26,24 @@ export const useGetEmployees = (token: string, queryParams: PaginationParams) =>
   });
 };
 
+export const useGetChooseEmployees = (token: string) => {
+  return useQuery({
+    queryKey: ["getChooseEmployees"],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`${EMPLOYEE_ENDPOINT}/choose`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data;
+    },
+    enabled: !!token,
+    staleTime: 10 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
+};
+
 export const useGetEmployee = (token: string, id: string) => {
   return useQuery({
     queryKey: ["getEmployee", id],

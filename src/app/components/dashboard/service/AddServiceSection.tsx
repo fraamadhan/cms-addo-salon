@@ -52,7 +52,7 @@ export const AddServiceSection = () => {
             }
         },
         onError: (error) => {
-            toast.error(error.message || "Gagal menambah data pengguna");
+            toast.error(error.message || "Gagal menambah data layanan");
             return;
         }
     })

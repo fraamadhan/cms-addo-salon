@@ -61,7 +61,7 @@ export const TableUser = (
                                 <tr>
                                     <td colSpan={6} >
                                         <div className="flex items-center justify-center w-full min-h-[20rem]">
-                                            <p className="text-gray-400 text-lg">Data pegawai tidak dapat ditemukan</p>
+                                            <p className="text-gray-400 text-lg">Data pengguna tidak dapat ditemukan</p>
                                         </div>
                                     </td>
                                 </tr>

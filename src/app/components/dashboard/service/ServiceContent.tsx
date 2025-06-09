@@ -61,6 +61,7 @@ export const ServiceContent = () => {
                     <TableService services={services} token={token} startIndex={(currentPage - 1) * paginator?.limit} />
                 ) : (<TableServiceSkeleton />)
             }
-            <Pagination currentPage={currentPage} totalPage={totalPage} paginator={paginator} handlePageChange={handlePageChange} />        </div>
+            <Pagination currentPage={currentPage} totalPage={totalPage} paginator={paginator} handlePageChange={handlePageChange} />
+        </div>
     )
 }

@@ -96,7 +96,6 @@ export const AddUserForm = () => {
             }
         },
         onError: (error) => {
-            console.log(error)
             toast.error(error.message || "Gagal menambah data pengguna")
             return;
         }
