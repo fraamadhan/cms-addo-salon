@@ -1,10 +1,12 @@
 import { axiosInstance } from "@/lib/axios";
 import { TRANSACTION_ENDPOINT } from "@/lib/endpoints";
 import { TransactionStatus } from "@/lib/enum";
+import { TransactionSchema } from "@/schemas/TransactionSchema";
 import { StateStatus, TransactionQueryParams } from "@/types/general";
 import { UpdateScheduleBody } from "@/types/transaction-type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { z } from "zod";
 
 export const useGetOrders = (token: string, queryParams: TransactionQueryParams) => {
   return useQuery({
@@ -30,6 +32,41 @@ export const useGetOrder = (token: string, id: string) => {
     queryKey: ["getOrder", id],
     queryFn: async () => {
       const response = await axiosInstance.get(`${TRANSACTION_ENDPOINT}/order/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data;
+    },
+    enabled: !!token && !!id,
+  });
+};
+
+export const useGetTransactions = (token: string, queryParams: TransactionQueryParams) => {
+  return useQuery({
+    queryKey: ["getTransactions", queryParams],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`${TRANSACTION_ENDPOINT}/history`, {
+        params: {
+          ...queryParams,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data;
+    },
+    enabled: !!token,
+  });
+};
+
+export const useGetTransaction = (token: string, id: string) => {
+  return useQuery({
+    queryKey: ["getTransaction", id],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`${TRANSACTION_ENDPOINT}/history/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -108,7 +145,31 @@ export const useUpdateGeneralInfoOrder = ({ onSuccess, onError }: StateStatus) =
       } catch (error) {
         if (error instanceof AxiosError) {
           if (error instanceof AxiosError) {
-            throw new Error(error.response?.data?.message || "Gagal memperbarui jadwal pesanan");
+            throw new Error(error.response?.data?.message || "Gagal memperbarui data pesanan");
+          }
+        }
+      }
+    },
+    onSuccess,
+    onError,
+  });
+};
+
+export const useCreateTransaction = ({ onSuccess, onError }: StateStatus) => {
+  return useMutation({
+    mutationFn: async ({ token, body }: { token: string; body: z.infer<typeof TransactionSchema> }) => {
+      try {
+        const response = await axiosInstance.post(`${TRANSACTION_ENDPOINT}`, body, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        return response.data;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          if (error instanceof AxiosError) {
+            throw new Error(error.response?.data?.message || "Gagal menambah data transaksi");
           }
         }
       }

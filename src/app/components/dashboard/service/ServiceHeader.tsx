@@ -43,6 +43,7 @@ export const ServiceHeader = () => {
         else if (value === 'highestPrice') {
             currentParams.set('sorttype', 'desc');
         }
+        currentParams.set('page', '1')
         router.replace(`${pathname}?${currentParams.toString()}`);
     }
 
@@ -51,6 +52,7 @@ export const ServiceHeader = () => {
         currentParams.delete('sortby');
         currentParams.delete('sorttype')
         setSortingByPrice("");
+        currentParams.set('page', '1')
         router.replace(`${pathname}?${currentParams.toString()}`);
     }
 

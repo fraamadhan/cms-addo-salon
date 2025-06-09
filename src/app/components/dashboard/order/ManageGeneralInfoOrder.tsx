@@ -1,16 +1,15 @@
 'use client'
 
-import { ChevronsUpDown, Loader2Icon } from "lucide-react"
+import { Loader2Icon } from "lucide-react"
 import Button from "../../button/Button"
-import { Controller, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { z } from 'zod';
 import { OrderSchema } from "@/schemas/OrderSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TransactionEmployeeItem, TransactionResponseItem } from "@/types/transaction-type";
+import { TransactionResponseItem } from "@/types/transaction-type";
 import { useEffect, useState } from "react";
 import { useGetChooseEmployees } from "@/services/employeeService";
-import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "../../ui/command";
+import { SelectEmployee } from "../../form/combo-box/SelectEmployee";
 
 export const ManageGeneralInfoOrder = (
   { order, token, isPending, onSubmit }: { order: TransactionResponseItem, token: string, isPending: boolean, onSubmit: (data: z.infer<typeof OrderSchema>) => void }
@@ -34,7 +33,7 @@ export const ManageGeneralInfoOrder = (
 
   const onCancel = () => {
     reset({
-      customerName: order?.user?.name ?? "",
+      customerName: order?.user?.name ?? order?.user?.customerName ?? "",
       serviceName: order?.product?.name ?? "",
       servicePrice: order?.price ?? 0,
       note: order?.note ?? "",
@@ -45,7 +44,7 @@ export const ManageGeneralInfoOrder = (
   useEffect(() => {
     if (order) {
       reset({
-        customerName: order?.user?.name ?? "",
+        customerName: order?.user?.name ?? order?.user?.customerName ?? "",
         serviceName: order?.product?.name ?? "",
         servicePrice: order?.price ?? 0,
         note: order?.note ?? "",
@@ -61,7 +60,7 @@ export const ManageGeneralInfoOrder = (
         <div className="flex items-center gap-x-3">
           <label htmlFor="customerName" className="w-[10rem]">Nama pelanggan</label>
           <div className="flex items-center gap-x-3">
-            <input {...register('customerName')} type="text" id="customerName" name="customerName" placeholder="Nama pelanggan" className="focus:outline-none p-2 bg-white border-2 border-gold-500 rounded-lg w-[20rem]" disabled />
+            <input {...register('customerName')} type="text" id="customerName" name="customerName" placeholder="Nama pelanggan" className="focus:outline-none p-2 bg-gray-100 border-2 border-gold-500 rounded-lg w-[20rem]" disabled />
           </div>
         </div>
         {errors.customerName && (
@@ -73,43 +72,7 @@ export const ManageGeneralInfoOrder = (
         {/* employee */}
         <div className="flex items-center gap-x-3">
           <label htmlFor="serviceName" className="w-[10rem]">Pegawai</label>
-          <Controller
-            control={control}
-            name="employeeId"
-            render={({ field }) => (
-              <Popover open={open} onOpenChange={setOpen}>
-                <PopoverTrigger asChild className="flex items-center justify-between">
-                  <Button className="p-2 w-[20rem] border-2 border-gold-500 rounded-xl">
-                    {field.value
-                      ? employees?.find((emp: TransactionEmployeeItem) => emp._id === field.value)?.name
-                      : "Pilih pegawai yang akan ditugaskan"}
-                    <ChevronsUpDown className="opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-[20rem] p-1 border-gold-500 border-1 max-h-60 overflow-auto">
-                  <Command>
-                    <CommandInput placeholder="Cari pegawai..." className="h-9" />
-                    <CommandEmpty>Pegawai tidak ditemukan.</CommandEmpty>
-                    <CommandGroup>
-                      {employees?.map((employee: TransactionEmployeeItem) => (
-                        <CommandItem
-                          key={employee._id}
-                          value={employee.name}
-                          onSelect={() => {
-                            field.onChange(employee._id);
-                            setOpen(false);
-                          }}
-                        >
-                          {employee.name}
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-            )}
-          >
-          </Controller>
+          <SelectEmployee employees={employees} fieldName="employeeId" open={open} setOpen={setOpen} control={control} />
         </div>
 
         {/* service name */}

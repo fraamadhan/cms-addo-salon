@@ -11,6 +11,29 @@ export type TransactionResponseItem = {
   employee: TransactionEmployeeItem;
 };
 
+export type TransactionHistoryResponseItem = {
+  _id: string;
+  status: string;
+  orderCode: string;
+  customerName?: string | null;
+  items: HistoryItem[];
+  user: TransactionUserItem;
+  createdAt: string;
+  transactionType?: string;
+  bank?: string | null;
+  paymentMethod?: string;
+};
+
+export type HistoryItem = {
+  _id: string;
+  reservationDate: string;
+  serviceStatus: string;
+  price: number;
+  note: string;
+  product: TransactionProductItem;
+  employee: TransactionEmployeeItem;
+};
+
 export type TransactionItem = {
   _id: string;
   orderCode: string;
@@ -28,6 +51,9 @@ export type TransactionProductItem = {
 export type TransactionUserItem = {
   _id: string;
   name: string;
+  email?: string;
+  phone_number?: string;
+  customerName: string;
 };
 
 export type TransactionEmployeeItem = {
@@ -46,4 +72,24 @@ export type UpdateScheduleBody = {
   reservationDate: string;
   estimation: number;
   userId: string;
+};
+
+export type UpdateOrderForm = {
+  customerName: string;
+  serviceName: string;
+  servicePrice: number;
+  note: string;
+  employeeId: string;
+};
+
+export type AddTransactionForm = {
+  customerName: string;
+  orderCode?: string;
+  employeeId: string;
+  transactionType: string;
+  reservationDate: string;
+  status: string;
+  productId: string;
+  paymentMethod: string;
+  bank?: string;
 };

@@ -3,7 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { TransactionResponseItem } from '@/types/transaction-type';
 import { TransactionStatus } from '@/lib/enum';
 
-interface SelectInputCategoryProps {
+interface SelectInputStatusProps {
     order?: TransactionResponseItem;
     serviceStatus: TransactionStatus | null;
     data: Record<string, string>[];
@@ -12,7 +12,7 @@ interface SelectInputCategoryProps {
 }
 
 export const SelectInputStatus = (
-    { order, serviceStatus, data, placeholder, onValueChange }: SelectInputCategoryProps
+    { order, serviceStatus, data, placeholder, onValueChange }: SelectInputStatusProps
 ) => {
     return (
         <div className="flex items-center gap-x-3">

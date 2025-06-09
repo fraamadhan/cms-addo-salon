@@ -97,7 +97,7 @@ export const ManageStatusSchedule = (
   return (
     <div className="flex flex-col gap-4 p-4 border-2 border-gold-500 ring-1 ring-gold-500 rounded-xl">
       <div className="flex flex-col gap-2">
-        <label className="font-semibold text-gold-500">
+        <label className="font-semibold">
           Status Pesanan
         </label>
         <div className="flex items-center gap-2">
@@ -108,7 +108,7 @@ export const ManageStatusSchedule = (
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <label className="font-semibold text-gold-500" htmlFor="reservationDate">
+        <label className="font-semibold" htmlFor="reservationDate">
           Jadwal Pesanan
         </label>
         <div className="flex items-center gap-2">

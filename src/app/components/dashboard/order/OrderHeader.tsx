@@ -47,6 +47,7 @@ export const OrderHeader = () => {
         else if (value === TransactionStatus.UNPAID) {
             currentParams.set('orderStatus', TransactionStatus.UNPAID);
         }
+        currentParams.set('page', '1')
         router.push(`${pathname}?${currentParams.toString()}`)
     }
 
@@ -61,6 +62,7 @@ export const OrderHeader = () => {
         if (endDate) {
             currentParams.set('endDate', endDate)
         }
+        currentParams.set('page', '1')
         router.push(`${pathname}?${currentParams.toString()}`)
     }
 
@@ -78,6 +80,7 @@ export const OrderHeader = () => {
         if (endDateRef.current) {
             endDateRef.current.value = '';
         }
+        currentParams.set('page', '1')
         router.push(`${pathname}?${currentParams.toString()}`)
     }
     return (

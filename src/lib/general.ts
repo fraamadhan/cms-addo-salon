@@ -18,7 +18,7 @@ export const dateFormatter = (dateString: string) => {
   const parts = new Intl.DateTimeFormat("id-ID", options).formatToParts(date);
   const getParts = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
 
-  const dateFormatted = `${getParts("day")} ${getParts("month")} ${getParts("year")} | ${getParts("hour")}:${getParts("minute")} ${getParts("dayPeriod")}`;
+  const dateFormatted = `${getParts("day")} ${getParts("month")} ${getParts("year")} ${getParts("hour")}:${getParts("minute")} ${getParts("dayPeriod")}`;
 
   return dateFormatted;
 };

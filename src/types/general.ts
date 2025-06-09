@@ -23,7 +23,7 @@ export type Paginator = {
 };
 
 export class PaginationParams {
-  page: string | 1 = 1;
+  page?: string | 1 = 1;
   limit?: string | undefined;
   keyword?: string | "";
   slug?: string | undefined;
@@ -38,6 +38,7 @@ export class ParamsFilterService extends PaginationParams {
   highestPrice?: number;
   rating?: number;
   type?: "male" | "female" | "unisex";
+  getAll?: boolean;
 }
 
 export class TransactionQueryParams extends PaginationParams {

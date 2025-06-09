@@ -179,3 +179,45 @@ export const SkeletonTableOrder = ({ rows = 5 }: { rows?: number }) => {
     );
 };
 
+export const SkeletonTableTransaction = ({ rows = 5 }: { rows?: number }) => {
+    return (
+        <div className="w-full">
+            <table className="w-full">
+                <thead>
+                    <tr className='border border-gray-400 bg-gray-100'>
+                        <th className='w-[1rem]'>No</th>
+                        <th className='w-[15rem]'>Nama Pelanggan</th>
+                        <th className='w-[15rem]'>Layanan</th>
+                        <th className='w-[10rem]'>Jadwal Pesanan</th>
+                        <th className='w-[1rem]'>Status</th>
+                        <th className='w-[10rem]'>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Array.from({ length: rows }).map((_, index) => (
+                        <tr key={index} className="text-center border border-gold-300 w-full animate-pulse">
+                            <td className="border-r border-gold-300">
+                                <div className="h-4 w-4 bg-gray-300 mx-auto rounded" />
+                            </td>
+                            <td className="border-r border-gold-300">
+                                <div className="h-4 w-24 bg-gray-300 mx-auto rounded" />
+                            </td>
+                            <td className="border-r border-gold-300">
+                                <div className="h-4 w-32 bg-gray-300 mx-auto rounded" />
+                            </td>
+                            <td className="border-r border-gold-300">
+                                <div className="h-4 w-24 bg-gray-300 mx-auto rounded" />
+                            </td>
+                            <td className="border-r border-gold-300">
+                                <div className="h-4 w-16 bg-gray-300 mx-auto rounded" />
+                            </td>
+                            <td className="border-r border-gold-300">
+                                <div className="h-8 w-20 bg-gray-300 mx-auto rounded" />
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};

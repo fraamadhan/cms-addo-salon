@@ -10,9 +10,7 @@ export const OrderSchema = z.object({
   servicePrice: z.number({
     required_error: "Harga layanan harus diisi berupa angka",
   }),
-  note: z.string({
-    required_error: "Nama layanan harus diisi",
-  }),
+  note: z.string().optional(),
   employeeId: z.string({
     required_error: "Pegawai harus diisi",
   }),
