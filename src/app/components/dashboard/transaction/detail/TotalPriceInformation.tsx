@@ -10,7 +10,7 @@ export const TotalPriceInformation = (
                 <p className='leading-none'>Subtotal Harga Layanan</p>
                 <p className='leading-none'>{rupiahFormatter(subtotal)}</p>
             </div>
-            <div className='w-full flex items-center justify-between text-sm'>
+            <div className='w-full flex items-center justify-between font-semibold'>
                 <p className='leading-none'>Biaya Transaksi</p>
                 <p className='leading-none'>{rupiahFormatter(transactionFee) ?? 0}</p>
             </div>

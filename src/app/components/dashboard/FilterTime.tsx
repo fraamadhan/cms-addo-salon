@@ -52,7 +52,7 @@ export const FilterTime = () => {
 
     return (
         <div className="flex flex-col gap-y-3">
-            <p className="font-semibold">Lihat total GMV berdasarkan jangka waktu</p>
+            <p className="font-semibold">Lihat total pendapatan berdasarkan jangka waktu</p>
             <div className="flex items-center gap-x-3">
                 <Button
                     className={`p-2 border border-gold-500 rounded-md ${filter === 'all' ? "bg-gold-500 text-white" : ""}`}
