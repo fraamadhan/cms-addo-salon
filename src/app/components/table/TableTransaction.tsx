@@ -1,3 +1,5 @@
+'use client'
+
 import { TransactionHistoryResponseItem } from "@/types/transaction-type"
 import { TableTransactionItem } from "./TableTransactionItem"
 import { useQueryClient } from "@tanstack/react-query";
