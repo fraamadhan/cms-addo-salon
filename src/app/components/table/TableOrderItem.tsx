@@ -4,7 +4,7 @@ import { TransactionResponseItem } from "@/types/transaction-type"
 import { dateFormatter } from "@/lib/general"
 
 export const TableOrderItem = (
-    { order, idx }: { order: TransactionResponseItem, idx: number }
+    { order, idx, onDelete, }: { order: TransactionResponseItem, idx: number, onDelete: () => void }
 ) => {
     return (
         <tr className='text-center border border-gold-500 w-full'>
@@ -29,6 +29,7 @@ export const TableOrderItem = (
                     <Link href={`/dashboard/order/${order._id}`} className="w-full">
                         <Button className='p-1 rounded-md bg-gray-300 hover:bg-gray-700 text-white w-full cursor-pointer'>Detail</Button>
                     </Link>
+                    <Button className='w-full p-1 rounded-md bg-error-300 text-red-500 hover:bg-red-500 hover:text-red-300 cursor-pointer' onClick={onDelete}>Hapus</Button>
                 </div>
             </td>
         </tr>

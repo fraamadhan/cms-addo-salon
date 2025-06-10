@@ -60,7 +60,7 @@ export const TransactionContent = () => {
             <TransactionHeader />
             {
                 !isError && !isLoading ? (
-                    <TableTransaction transactions={transactions} startIndex={(currentPage - 1) * paginator?.limit} />
+                    <TableTransaction transactions={transactions} token={token} startIndex={(currentPage - 1) * paginator?.limit} />
                 ) :
                     (< SkeletonTableTransaction />)
             }
