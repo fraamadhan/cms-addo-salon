@@ -58,7 +58,7 @@ export const OrderContent = () => {
             <OrderHeader />
             {
                 !isError && !isLoading ? (
-                    <TableOrder orders={orders} startIndex={(currentPage - 1) * paginator?.limit} />
+                    <TableOrder orders={orders} startIndex={(currentPage - 1) * paginator?.limit} token={token} />
                 ) :
                     (< SkeletonTableOrder />)
             }

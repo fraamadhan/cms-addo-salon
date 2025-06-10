@@ -178,3 +178,30 @@ export const useCreateTransaction = ({ onSuccess, onError }: StateStatus) => {
     onError,
   });
 };
+
+export const useDeleteTransaction = ({ onSuccess, onError }: StateStatus) => {
+  return useMutation({
+    mutationFn: async ({ token, queryParams, id }: { token: string; queryParams: Record<string, string>; id: string }) => {
+      try {
+        const response = await axiosInstance.delete(`${TRANSACTION_ENDPOINT}/${id}`, {
+          params: {
+            ...queryParams,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        return response.data;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          if (error instanceof AxiosError) {
+            throw new Error(error.response?.data?.message || "Gagal menghapus data transaksi");
+          }
+        }
+      }
+    },
+    onSuccess,
+    onError,
+  });
+};
