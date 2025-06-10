@@ -7,6 +7,7 @@ export type DashboardFilter = {
   oneMonth: boolean | undefined;
   threeMonth: boolean | undefined;
   sixMonth: boolean | undefined;
+  year: number | undefined;
 };
 
 export type Paginator = {
@@ -47,3 +48,9 @@ export class TransactionQueryParams extends PaginationParams {
   startDate?: string | undefined | null;
   endDate?: string | undefined | null;
 }
+
+export type QuarterlyData = {
+  _id: { year: number; quarter: number };
+  totalRevenue: number;
+  totalItems: number;
+};
