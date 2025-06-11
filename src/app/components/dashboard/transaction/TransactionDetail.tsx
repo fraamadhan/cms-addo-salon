@@ -35,7 +35,7 @@ export const TransactionDetail = () => {
                         <StatusInformation status={transaction?.status} />
                         <TransactionInformation transaction={transaction} />
                         <TransactionItem items={transaction?.items} />
-                        <TotalPriceInformation subtotal={transaction?.subTotal} transactionFee={transaction?.transactionFee} totalPrice={transaction?.totalPrice} />
+                        <TotalPriceInformation subtotal={transaction?.subTotal} transactionFee={transaction?.transactionFee} totalPrice={transaction?.totalPrice} canceledItemsPrice={transaction?.canceledItemsPrice} />
                     </>
                 ) : (
                     <TransactionDetailSkeleton />
