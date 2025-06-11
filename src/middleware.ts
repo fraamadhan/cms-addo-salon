@@ -8,6 +8,34 @@ export const middleware = async (req: NextRequest) => {
   const { pathname } = req.nextUrl;
 
   const isAuthRoute = authRoutes.includes(pathname);
+  const isOnLoginPage = pathname === "/";
+
+  if (access_token) {
+    try {
+      const decoded: { exp: number; role: string } = jwtDecode(access_token);
+      const now = Math.floor(Date.now() / 1000);
+
+      if (decoded.role !== "ADMIN" && !isOnLoginPage) {
+        return NextResponse.redirect(new URL("/", req.url));
+      }
+
+      if (decoded.exp && decoded.exp < now) {
+        if (!isOnLoginPage) {
+          return NextResponse.redirect(new URL("/", req.url));
+        } else {
+          return NextResponse.next();
+        }
+      }
+      return NextResponse.next();
+    } catch (error) {
+      console.error("Invalid access token", error);
+      if (!isOnLoginPage) {
+        return NextResponse.redirect(new URL("/", req.url));
+      } else {
+        return NextResponse.next();
+      }
+    }
+  }
 
   if (isAuthRoute && access_token) {
     return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, req.url));
@@ -15,22 +43,6 @@ export const middleware = async (req: NextRequest) => {
 
   if (!isAuthRoute && !access_token) {
     return NextResponse.redirect(new URL(authRoutes[0], req.url));
-  }
-
-  if (access_token) {
-    try {
-      const decoded: { exp: number } = jwtDecode(access_token);
-      const now = Math.floor(Date.now() / 1000);
-
-      if (decoded.exp && decoded.exp < now) {
-        const isOnLoginPage = pathname === "/";
-        if (!isOnLoginPage) {
-          return NextResponse.redirect(new URL("/", req.url));
-        }
-      }
-    } catch (error) {
-      console.error("Invalid access token", error);
-    }
   }
 
   return NextResponse.next();

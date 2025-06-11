@@ -128,7 +128,7 @@ export const AddServiceForm = (
                 {/* service name */}
                 <div className="flex items-center gap-x-3">
                     <label htmlFor="name" className="w-[10rem]">Nama</label>
-                    <input type="text" {...register("name")} id="name" placeholder="Masukkan nama pengguna" className="focus:outline-none p-2 bg-white border-2 border-gold-500 rounded-lg w-[20rem]" />
+                    <input type="text" {...register("name")} id="name" placeholder="Masukkan nama layanan" className="focus:outline-none p-2 bg-white border-2 border-gold-500 rounded-lg w-[20rem]" />
                 </div>
                 {errors.name && <p className="text-red-500 text-sm mb-2">{errors.name.message} </p>}
 
