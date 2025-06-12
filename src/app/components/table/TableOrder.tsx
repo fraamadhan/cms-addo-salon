@@ -50,6 +50,7 @@ export const TableOrder = (
                         <th className='w-[15rem]'>Kode Pesanan</th>
                         <th className='w-[15rem]'>Nama Pelanggan</th>
                         <th className='w-[10rem]'>Jadwal Pesanan</th>
+                        <th className='w-[10rem]'>Nama Pegawai</th>
                         <th className='w-[1rem]'>Status</th>
                         <th className='w-[10rem]'>Aksi</th>
                     </tr>

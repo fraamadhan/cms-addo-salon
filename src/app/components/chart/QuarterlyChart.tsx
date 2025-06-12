@@ -78,7 +78,7 @@ export const ItemsQuarterlyChart = ({ data }: { data: QuarterlyData[] }) => {
         labels,
         datasets: [
             {
-                label: 'Items',
+                label: 'Layanan Terjual',
                 data: itemData,
                 fill: false,
                 borderColor: 'rgba(255, 159, 64, 1)',

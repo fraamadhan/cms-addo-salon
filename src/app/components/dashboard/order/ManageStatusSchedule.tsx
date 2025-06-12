@@ -10,9 +10,10 @@ import { useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { HttpStatusCode } from "axios"
 import { TransactionStatus } from "@/lib/enum"
+import { toLocalDatetimeInput } from "@/lib/general"
 
 export const ManageStatusSchedule = (
-  { order, token, id }: { order: TransactionResponseItem, token: string, id: string }
+  { order, token, id, setReservationDate }: { order: TransactionResponseItem, token: string, id: string, setReservationDate: (value: string) => void }
 ) => {
 
   const [serviceStatus, setServiceStatus] = useState<TransactionStatus | null>(order?.serviceStatus as TransactionStatus);
@@ -45,6 +46,7 @@ export const ManageStatusSchedule = (
   const handleDateTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = new Date(e.target.value);
     const hour = selected.getHours();
+    setReservationDate(e.target.value)
 
     if (hour < 7 || hour > 18) {
       toast.warning("Salon belum buka. Silakan pilih jadwal antara jam 07:00 - 18:00")
@@ -113,7 +115,7 @@ export const ManageStatusSchedule = (
         </label>
         <div className="flex items-center gap-2">
           <div className="w-[20rem] max-w-[25rem] p-1 border-2 border-gold-500 rounded-lg">
-            <input type="datetime-local" ref={reservationDateRef} name="reservationDate" id="reservationDate" defaultValue={order?.reservationDate ? new Date(order.reservationDate).toISOString().slice(0, 16) : undefined}
+            <input type="datetime-local" ref={reservationDateRef} name="reservationDate" id="reservationDate" defaultValue={order?.reservationDate ? toLocalDatetimeInput(order?.reservationDate) : undefined}
               className="w-full p-1 rounded-lg focus:outline-none" onChange={handleDateTimeChange}
             />
           </div>

@@ -23,6 +23,28 @@ export const dateFormatter = (dateString: string) => {
   return dateFormatted;
 };
 
+export const toLocalDatetimeInput = (dateStr: string) => {
+  const date = new Date(dateStr);
+
+  // Gunakan formatter dengan Asia/Jakarta
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  };
+
+  const parts = new Intl.DateTimeFormat("en-GB", options).formatToParts(date).reduce((acc, part) => {
+    if (part.type !== "literal") acc[part.type] = part.value;
+    return acc;
+  }, {} as Record<string, string>);
+
+  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+};
+
 export const birthDateFormater = (dateString: string) => {
   const date = new Date(dateString);
   const year = date.getFullYear();

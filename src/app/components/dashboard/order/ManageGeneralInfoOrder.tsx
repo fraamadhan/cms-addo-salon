@@ -12,7 +12,7 @@ import { useGetChooseEmployees } from "@/services/employeeService";
 import { SelectEmployee } from "../../form/combo-box/SelectEmployee";
 
 export const ManageGeneralInfoOrder = (
-  { order, token, isPending, onSubmit }: { order: TransactionResponseItem, token: string, isPending: boolean, onSubmit: (data: z.infer<typeof OrderSchema>) => void }
+  { order, token, isPending, reservationDate, onSubmit }: { order: TransactionResponseItem, token: string, isPending: boolean, reservationDate: string | null, onSubmit: (data: z.infer<typeof OrderSchema>) => void }
 ) => {
 
   const [open, setOpen] = useState(false);
@@ -28,7 +28,7 @@ export const ManageGeneralInfoOrder = (
     }
   })
 
-  const { data } = useGetChooseEmployees(token);
+  const { data } = useGetChooseEmployees(token, { estimation: order?.product?.estimation, reservationDate: reservationDate ?? order?.reservationDate, employeeId: order?.employee._id ?? undefined });
   const employees = data?.data;
 
   const onCancel = () => {
