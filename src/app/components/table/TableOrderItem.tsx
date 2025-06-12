@@ -6,6 +6,7 @@ import { dateFormatter } from "@/lib/general"
 export const TableOrderItem = (
     { order, idx, onDelete, }: { order: TransactionResponseItem, idx: number, onDelete: () => void }
 ) => {
+    console.log(order)
     return (
         <tr className='text-center border border-gold-500 w-full'>
             <td className='border-r-1 border-gold-500'>{idx}</td>
@@ -16,6 +17,7 @@ export const TableOrderItem = (
                 </div>
             </td>
             <td className='border-r-1 border-gold-500'>{dateFormatter(order.reservationDate)}</td>
+            <td className='border-r-1 border-gold-500'>{order?.employee?.name ?? "Belum ditentukan"}</td>
             <td className='w-[10rem] border-r-1 border-gold-500'>
                 {{
                     IN_PROGRESS: "Sedang Berlangsung",

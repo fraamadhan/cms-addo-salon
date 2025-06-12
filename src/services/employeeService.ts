@@ -26,11 +26,13 @@ export const useGetEmployees = (token: string, queryParams: PaginationParams) =>
   });
 };
 
-export const useGetChooseEmployees = (token: string) => {
+export const useGetChooseEmployees = (token: string, queryParams?: { reservationDate?: string | undefined; estimation?: number | undefined; employeeId?: string | undefined }) => {
+  const shouldFilter = !!queryParams?.estimation && !!queryParams?.estimation;
   return useQuery({
-    queryKey: ["getChooseEmployees"],
+    queryKey: shouldFilter ? ["getChooseEmployees", queryParams.reservationDate, queryParams.estimation, queryParams.employeeId] : ["getChooseEmployees", "allEmployees"],
     queryFn: async () => {
       const response = await axiosInstance.get(`${EMPLOYEE_ENDPOINT}/choose`, {
+        params: shouldFilter ? { ...queryParams } : {},
         headers: {
           Authorization: `Bearer ${token}`,
         },

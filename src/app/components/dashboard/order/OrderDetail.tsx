@@ -17,6 +17,7 @@ export const OrderDetail = () => {
 
     const params = useParams<{ id: string }>()
     const [token, setToken] = useState("");
+    const [reservationDate, setReservationDate] = useState<string | null>(null);
     const queryClient = useQueryClient();
 
     const { data, isLoading, isError } = useGetOrder(token, params.id)
@@ -28,10 +29,11 @@ export const OrderDetail = () => {
         }
         const body = {
             customerName: data.customerName,
-            employeeId: data.employeeId
+            employeeId: data.employeeId,
+            transactionId: order?.transactionId
         }
 
-        mutation.mutate({ token, body, id: order?.transactionId })
+        mutation.mutate({ token, body, id: params?.id })
     }
 
     const mutation = useUpdateGeneralInfoOrder({
@@ -43,6 +45,7 @@ export const OrderDetail = () => {
             else {
                 queryClient.invalidateQueries({ queryKey: ["getOrders"] })
                 queryClient.invalidateQueries({ queryKey: ["getOrder"] })
+                queryClient.invalidateQueries({ queryKey: ["getChooseEmployees"] })
                 toast.success('Berhasil memperbarui data pesanan', {
                     duration: 1500
                 });
@@ -69,8 +72,8 @@ export const OrderDetail = () => {
             {
                 !isError && !isLoading ? (
                     <>
-                        <ManageStatusSchedule order={order} token={token} id={params.id} />
-                        <ManageGeneralInfoOrder order={order} token={token} onSubmit={onSubmit} isPending={mutation.isPending} />
+                        <ManageStatusSchedule order={order} token={token} id={params.id} setReservationDate={setReservationDate} />
+                        <ManageGeneralInfoOrder order={order} token={token} onSubmit={onSubmit} isPending={mutation.isPending} reservationDate={reservationDate} />
                     </>
                 ) : (
                     <>
