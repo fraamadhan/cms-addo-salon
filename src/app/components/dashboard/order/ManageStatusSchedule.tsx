@@ -37,7 +37,6 @@ export const ManageStatusSchedule = (
     }
     const body: UpdateScheduleBody = {
       reservationDate,
-      userId: order.user._id,
       estimation: order.product.estimation
     }
     mutationUpdateSchedule.mutate({ token, body, id })

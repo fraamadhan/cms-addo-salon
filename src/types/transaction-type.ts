@@ -71,7 +71,6 @@ export type OrderForm = {
 export type UpdateScheduleBody = {
   reservationDate: string;
   estimation: number;
-  userId: string;
 };
 
 export type UpdateOrderForm = {
