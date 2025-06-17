@@ -36,7 +36,7 @@ export const ManageStatusSchedule = (
       return;
     }
     const body: UpdateScheduleBody = {
-      reservationDate,
+      reservationDate: new Date(reservationDate).toISOString(),
       estimation: order.product.estimation
     }
     mutationUpdateSchedule.mutate({ token, body, id })
