@@ -1,6 +1,6 @@
 import { AddEmployeeForm } from "@/app/components/form/AddEmployeeForm"
 
-const AddUserPage = () => {
+const AddEmployeePage = () => {
     return (
         <main className="w-full p-7 flex flex-col gap-y-7">
             <h1 className="text-3xl font-bold">Tambah Data Pegawai</h1>
@@ -9,4 +9,4 @@ const AddUserPage = () => {
     )
 }
 
-export default AddUserPage
+export default AddEmployeePage
