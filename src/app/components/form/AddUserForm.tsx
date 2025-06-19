@@ -1,6 +1,6 @@
 'use client'
 
-import { EyeIcon, EyeOffIcon, Loader2Icon } from "lucide-react"
+import { EyeIcon, EyeOffIcon, InfoIcon, Loader2Icon } from "lucide-react"
 import { Controller, useForm } from "react-hook-form"
 import Button from "../button/Button"
 import Image from "next/image"
@@ -184,6 +184,10 @@ export const AddUserForm = () => {
                     {errors.email && <p className="text-red-500 text-sm mb-2">{errors.email.message} </p>}
 
                     {/* password */}
+                    <div className="max-w-[29rem] flex flex-row gap-4 bg-warning-50 p-1 items-center rounded-xl">
+                        <InfoIcon className="w-[3em rounded-full p-0" />
+                        <p className="text-sm font-federo font-normal text-gray-500">Pastikan kata sandi memiliki minimal 8 karakter, dengan huruf besar, huruf kecil, angka, dan simbol</p>
+                    </div>
                     <div className="flex items-center gap-x-3 relative">
                         <label htmlFor="password" className="w-[10rem]">Password</label>
                         <div className="relative flex items-center w-[18rem]">
