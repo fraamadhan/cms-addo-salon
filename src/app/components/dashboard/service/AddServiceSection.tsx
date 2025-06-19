@@ -43,7 +43,9 @@ export const AddServiceSection = () => {
                 return;
             }
             else {
-                queryClient.invalidateQueries({ queryKey: ["getServices"] })
+                queryClient.refetchQueries({
+                    predicate: (query) => query.queryKey[0] === "getServices"
+                });
                 toast.success('Berhasil menambah data layanan', {
                     duration: 1500
                 });
