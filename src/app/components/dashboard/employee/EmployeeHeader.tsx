@@ -5,14 +5,13 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../../button/Button";
-import { ModalAddEmployee } from "../../modal/ModalEmployee";
+import Link from "next/link";
 
 export const EmployeeHeader = () => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams()
     const [keyword, setKeyword] = useState(searchParams.get('keyword') || "");
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const updateQueryParams = (keyword: string) => {
         const currentParams = new URLSearchParams(searchParams);
@@ -26,8 +25,6 @@ export const EmployeeHeader = () => {
             updateQueryParams((e.target as HTMLInputElement).value)
         }
     }
-
-    const onClose = () => setIsModalOpen(false);
 
     return (
         <div className="w-full flex items-center justify-between">
@@ -44,16 +41,12 @@ export const EmployeeHeader = () => {
                 </div>
             </div>
             <div className="w-[15rem]">
-                <Button className="p-2 w-full text-gray-700 bg-gold-500 hover:bg-gold-700 border border-gold-700 ring-1 ring-gold-700 rounded-lg" onClick={() => setIsModalOpen(true)}>
-                    Tambah Pegawai
-                </Button>
+                <Link href="/dashboard/employee/add-employee/form" className="w-full">
+                    <Button className="p-2 w-full text-gray-700 bg-gold-500 hover:bg-gold-700 border border-gold-700 ring-1 ring-gold-700 rounded-lg">
+                        Tambah Pegawai
+                    </Button>
+                </Link>
             </div>
-
-            {
-                isModalOpen && (
-                    <ModalAddEmployee onClose={onClose} />
-                )
-            }
         </div>
     )
 }
