@@ -94,7 +94,7 @@ const LoginForm = () => {
                                 className="w-full outline-none p-2 border border-gold-500 rounded-xl peer pr-10 focus:ring-2 focus:ring-gold-500"
                                 required
                             />
-                            <Button className="absolute top-1/2 right-3 -translate-y-[-1/2] cursor-pointer">
+                            <Button className="absolute top-1/2 right-3 -translate-y-[-1/2] cursor-pointer" type="button">
                                 <ShowPasswordIcon onClick={handleShowPassword} />
                             </Button>
                         </div>
