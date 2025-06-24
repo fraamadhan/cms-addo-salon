@@ -41,7 +41,9 @@ export const UserDetail = () => {
         formData.append('birth_date', data.birth_date);
         formData.append('role', data.role);
         formData.append('is_verified', String(data.is_verified));
-        formData.append('email_verified_at', data.email_verified_at);
+        if (data.email_verified_at) {
+            formData.append('email_verified_at', data.email_verified_at);
+        }
         formData.append('gender', data.gender)
 
         mutation.mutate({ token, id: params.id, body: formData });

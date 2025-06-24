@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { TransactionStatus } from "@/lib/enum";
 import Button from "../../button/Button";
 import Link from "next/link";
+import { toast } from "sonner";
 
 const transactionStatusList = [
     { value: TransactionStatus.PAID, label: "Sudah dibayar" },
@@ -60,6 +61,11 @@ export const TransactionHeader = () => {
         const startDate = startDateRef.current?.value;
         const endDate = endDateRef.current?.value;
         const currentParams = new URLSearchParams(searchParams);
+
+        if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+            toast.error("Tanggal mulai tidak boleh lebih besar dari tanggal akhir");
+            return;
+        }
 
         if (startDate) {
             currentParams.set('startDate', startDate);

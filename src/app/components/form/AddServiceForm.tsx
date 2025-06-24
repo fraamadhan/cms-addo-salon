@@ -63,6 +63,7 @@ export const AddServiceForm = (
         })
 
         setImagePreview(service?.assetRef ?? '/si.svg')
+        setSelectedCategory(service?.category[0]?._id ?? '');
     }
 
     useEffect(() => {
@@ -86,16 +87,7 @@ export const AddServiceForm = (
     return (
         <section className="flex flex-col w-full gap-y-7">
             <form className="w-full flex flex-col p-7 border shadow-xl rounded-xl gap-y-4" onSubmit={handleSubmit(onSubmit)}>
-                {Object.keys(errors).length > 0 && (
-                    <div className="text-red-500">
-                        Masukkan ada yang salah:
-                        <ul className="list-disc ml-5">
-                            {Object.entries(errors).map(([key, value]) => (
-                                <li key={key}>{key}: {value?.message as string}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                <span className="text-red-500">(*) simbol wajib diisi</span>
                 {/* image */}
                 <div className="flex flex-col items-center justify-center w-full gap-y-3">
                     <div className="w-48 h-48 rounded-full overflow-hidden relative flex-shrink-0 p-3 bg-gray-100">
@@ -108,7 +100,10 @@ export const AddServiceForm = (
                             priority
                         />
                     </div>
-                    <p className="text-sm text-red-500">Maksimal ukuran gambar 5MB</p>
+                    <div className="text-center">
+                        <p className="text-sm text-red-500">Maksimal ukuran gambar 5MB</p>
+                        <p className="text-sm text-red-500">Wajib diisi. Format yang didukung (.jpeg, .png, .webp)</p>
+                    </div>
                     <label
                         htmlFor="file"
                         className="w-[8rem] bg-gold-500 p-2 rounded-md shadow-lg cursor-pointer hover:-translate-y-1 hover:scale-110 ease-in-out transition delay-150 duration-200 relative text-center">
@@ -120,6 +115,7 @@ export const AddServiceForm = (
                         name="file"
                         id="file"
                         aria-label="tombol ubah foto profile"
+                        accept=".jpeg, .png, .webp"
                         className="w-fit hidden"
                         onChange={handleImageChange}
                     />
@@ -127,14 +123,14 @@ export const AddServiceForm = (
 
                 {/* service name */}
                 <div className="flex items-center gap-x-3">
-                    <label htmlFor="name" className="w-[10rem]">Nama</label>
+                    <label htmlFor="name" className="w-[10rem]"><span className="text-red-500">*</span>Nama</label>
                     <input type="text" {...register("name")} id="name" placeholder="Masukkan nama layanan" className="focus:outline-none p-2 bg-white border-2 border-gold-500 rounded-lg w-[20rem]" />
                 </div>
-                {errors.name && <p className="text-red-500 text-sm mb-2">{errors.name.message} </p>}
+                {errors.name && <p className="text-red-500 text-sm w-[31rem] bg-red-100 font-bold rounded-xl p-2">{errors.name.message} </p>}
 
                 {/* description */}
                 <div className="flex items-start gap-x-3">
-                    <label htmlFor="description" className="w-[10rem]">Deskripsi</label>
+                    <label htmlFor="description" className="w-[10rem]"><span className="text-red-500">*</span>Deskripsi</label>
                     <textarea
                         {...register("description")}
                         name="description"
@@ -148,35 +144,35 @@ export const AddServiceForm = (
                     </textarea>
                 </div>
                 {errors.description && (
-                    <p className="text-red-500 text-sm bg-red-100 font-bold rounded-xl p-2">
+                    <p className="text-red-500 text-sm w-[31rem] bg-red-100 font-bold rounded-xl p-2">
                         {errors.description.message}
                     </p>
                 )}
 
                 {/* price */}
                 <div className="flex items-center gap-x-3">
-                    <label htmlFor="price" className="w-[10rem]">Harga Layanan</label>
+                    <label htmlFor="price" className="w-[10rem]"><span className="text-red-500">*</span>Harga Layanan</label>
                     <div className="flex">
                         <span className="p-2 inline-flex items-center bg-gold-500 border-2 rounded-l-lg border-r-0 text-white border-gold-500">Rp</span>
                         <input {...register('price', { valueAsNumber: true })} type="number" id="price" name="price" placeholder="Contoh: 20000" className="focus:outline-none p-2 bg-white border-2 border-gold-500 rounded-r-lg w-[18rem]" pattern="^[0-9]*$" />
                     </div>
                 </div>
                 {errors.price && (
-                    <p className="text-red-500 text-sm bg-red-100 font-bold rounded-xl p-2">
+                    <p className="text-red-500 text-sm w-[31rem] bg-red-100 font-bold rounded-xl p-2">
                         {errors.price.message}
                     </p>
                 )}
 
                 {/* estimation */}
                 <div className="flex items-center gap-x-3">
-                    <label htmlFor="estimation" className="w-[10rem]">Estimasi</label>
+                    <label htmlFor="estimation" className="w-[10rem]"><span className="text-red-500">*</span>Estimasi</label>
                     <div className="flex items-center gap-x-3">
                         <input {...register('estimation', { valueAsNumber: true })} type="number" id="estimation" name="estimation" placeholder="Contoh: 20000" className="focus:outline-none p-2 bg-white border-2 border-gold-500 rounded-lg w-[20rem]" />
                         <span className="text-warning-500 bg-warning-100 p-1 rounded-md font-semibold">dalam jam</span>
                     </div>
                 </div>
                 {errors.estimation && (
-                    <p className="text-red-500 text-sm bg-red-100 font-bold rounded-xl p-2">
+                    <p className="text-red-500 text-sm w-[31rem] bg-red-100 font-bold rounded-xl p-2">
                         {errors.estimation.message}
                     </p>
                 )}
@@ -187,7 +183,7 @@ export const AddServiceForm = (
                     setValue('subCategory', ''); // reset subkategori saat ganti kategori
                 }} />
                 {errors.category && (
-                    <p className="text-red-500 text-sm bg-red-100 font-bold rounded-xl p-2">
+                    <p className="text-red-500 text-sm w-[31rem] bg-red-100 font-bold rounded-xl p-2">
                         {errors.category.message}
                     </p>
                 )}
@@ -204,7 +200,7 @@ export const AddServiceForm = (
                     placeholder="Pilih Sub Kategori"
                 />
                 {errors.subCategory && (
-                    <p className="text-red-500 text-sm bg-red-100 font-bold rounded-xl p-2">
+                    <p className="text-red-500 text-sm w-[31rem] bg-red-100 font-bold rounded-xl p-2">
                         {errors.subCategory.message}
                     </p>
                 )}
@@ -219,9 +215,20 @@ export const AddServiceForm = (
                     placeholder="Pilih Tipe Layanan"
                 />
                 {errors.type && (
-                    <p className="text-red-500 text-sm bg-red-100 font-bold rounded-xl p-2">
+                    <p className="text-red-500 text-sm w-[31rem] bg-red-100 font-bold rounded-xl p-2">
                         {errors.type.message}
                     </p>
+                )}
+
+                {Object.keys(errors).length > 0 && (
+                    <div className="text-red-500">
+                        Masukkan ada yang salah:
+                        <ul className="list-disc ml-5">
+                            {Object.entries(errors).map(([key, value]) => (
+                                <li key={key}>{key}: {value?.message as string}</li>
+                            ))}
+                        </ul>
+                    </div>
                 )}
 
                 {/* button */}

@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
 import { TransactionStatus } from "@/lib/enum";
 import Button from "../../button/Button";
+import { toast } from "sonner";
 
 const statusList = [
     { value: TransactionStatus.SCHEDULED, label: "Terjadwal" },
@@ -55,6 +56,11 @@ export const OrderHeader = () => {
         const startDate = startDateRef.current?.value;
         const endDate = endDateRef.current?.value;
         const currentParams = new URLSearchParams(searchParams);
+
+        if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+            toast.error("Tanggal mulai tidak boleh lebih besar dari tanggal akhir");
+            return;
+        }
 
         if (startDate) {
             currentParams.set('startDate', startDate);
