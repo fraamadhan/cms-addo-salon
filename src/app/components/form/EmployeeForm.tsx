@@ -50,26 +50,27 @@ export const EmployeeForm = (
     }
 
     return (
-        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <form className="w-full flex flex-col gap-y-2" onSubmit={handleSubmit(onSubmit)}>
+            <span className="text-red-500">(*) simbol wajib diisi</span>
             <div className="max-w-[30rem] flex flex-col gap-y-5">
                 <div className="flex flex-col">
-                    <label className="block text-sm font-medium mb-1 w-full" htmlFor="name">Nama</label>
+                    <label className="block text-sm font-medium mb-1 w-full" htmlFor="name"><span className="text-red-500">*</span>Nama</label>
                     <input {...register("name")} type="text" name="name" id="name" className="w-full focus:outline-none p-2 border border-gold-500 rounded-lg" required />
                 </div>
                 {errors.name && <p className="text-red-500 text-sm bg-red-100 font-bold rounded-xl p-2">{errors.name.message}</p>}
                 <div className="flex flex-col">
-                    <label className="block text-sm font-medium mb-1 w-full" htmlFor="email">Email</label>
+                    <label className="block text-sm font-medium mb-1 w-full" htmlFor="email"><span className="text-red-500">*</span>Email</label>
                     <input {...register("email")} type="text" name="email" id="email"
                         className="w-full focus:outline-none p-2 border border-gold-500 rounded-lg" required />
                 </div>
                 {errors.email && <p className="text-red-500 text-sm bg-red-100 font-bold rounded-xl p-2">{errors.email.message}</p>}
                 <div className="flex flex-col">
-                    <label className="block text-sm font-medium mb-1 w-full" htmlFor="phoneNumber">No. Telepon</label>
+                    <label className="block text-sm font-medium mb-1 w-full" htmlFor="phoneNumber"><span className="text-red-500">*</span>No. Telepon</label>
                     <input {...register("phoneNumber")} type="text" name="phoneNumber" id="phoneNumber" className="w-full focus:outline-none p-2 border border-gold-500 rounded-lg" required />
                 </div>
                 {errors.phoneNumber && <p className="text-red-500 text-sm bg-red-100 font-bold rounded-xl p-2">{errors.phoneNumber.message}</p>}
                 <div className="flex flex-col w-full md:w-[16rem] lg:w-[18rem] rounded-xl">
-                    <label className="block text-sm font-medium mb-1 w-full" htmlFor="phoneNumber">Ketersediaan</label>
+                    <label className="block text-sm font-medium mb-1 w-full" htmlFor="phoneNumber"><span className="text-red-500">*</span>Ketersediaan</label>
                     {
                         !isLoading ? (
                             <Controller
