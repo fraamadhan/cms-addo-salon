@@ -21,6 +21,7 @@ export const SelectInputCategory = (
     return (
         <div className="flex items-center gap-x-3">
             <label htmlFor={inputName} className="w-[10rem]">
+                {!isSubCategory ? (<span className="text-red-500">*</span>) : null}
                 {label}
             </label>
             {!isLoading ? (

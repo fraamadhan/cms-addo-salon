@@ -96,16 +96,7 @@ export const UserGeneralInformation = (
     return (
         <section className="flex flex-col w-full gap-y-7">
             <form className="w-full flex flex-col p-7 border shadow-xl rounded-xl gap-y-3" onSubmit={handleSubmit(onSubmit)}>
-                {Object.keys(errors).length > 0 && (
-                    <div className="text-red-500">
-                        Masukkan ada yang salah:
-                        <ul className="list-disc ml-5">
-                            {Object.entries(errors).map(([key, value]) => (
-                                <li key={key}>{key}: {value?.message as string}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                <span className="text-red-500">(*) simbol wajib diisi</span>
                 {/* Image */}
                 <div className="flex flex-col items-center justify-center w-full gap-y-4">
                     <div className="w-48 h-48 rounded-full overflow-hidden relative flex-shrink-0 p-3 bg-gray-100">
@@ -137,14 +128,14 @@ export const UserGeneralInformation = (
                 <div className="flex flex-col w-full gap-y-3">
                     {/* name */}
                     <div className="flex items-center gap-x-3">
-                        <label htmlFor="name" className="w-[10rem]">Nama</label>
+                        <label htmlFor="name" className="w-[10rem]"><span className="text-red-500">*</span>Nama</label>
                         <input type="text" {...register("name")} id="name" placeholder="Masukkan nama pengguna" className="focus:outline-none p-2 bg-white border-2 border-gold-500 rounded-lg w-[18rem]" />
                     </div>
                     {errors.name && <p className="text-red-500 text-sm mb-2">{errors.name.message} </p>}
 
                     {/* email */}
                     <div className="flex items-center gap-x-3">
-                        <label htmlFor="email" className="w-[10rem]">Email</label>
+                        <label htmlFor="email" className="w-[10rem]"><span className="text-red-500">*</span>Email</label>
                         <input type="text" {...register("email")} id="email" placeholder="Masukkan email pengguna" className="focus:outline-none p-2 bg-white border-2 border-gold-500 rounded-lg w-[18rem]"
                             disabled
                         />
@@ -153,7 +144,7 @@ export const UserGeneralInformation = (
 
                     {/* phone number */}
                     <div className="flex items-center gap-x-3">
-                        <label htmlFor="phone_number" className="w-[10rem]">No telepon</label>
+                        <label htmlFor="phone_number" className="w-[10rem]"><span className="text-red-500">*</span>No telepon</label>
                         <input
                             {...register("phone_number")}
                             type="tel"
@@ -170,7 +161,7 @@ export const UserGeneralInformation = (
                     {/* role */}
                     <div className="flex items-center gap-x-3">
                         <label htmlFor="role" className="w-[10rem]">
-                            Role
+                            <span className="text-red-500">*</span>Role
                         </label>
                         {
                             !isLoading ? (
@@ -209,7 +200,7 @@ export const UserGeneralInformation = (
                     {/* gender */}
                     <div className="flex items-center gap-x-3">
                         <label htmlFor="gender" className="w-[10rem]">
-                            Jenis kelamin
+                            <span className="text-red-500">*</span>Jenis kelamin
                         </label>
                         {
                             !isLoading ? (
@@ -248,7 +239,7 @@ export const UserGeneralInformation = (
 
                     {/* address */}
                     <div className="flex items-start gap-x-3">
-                        <label htmlFor="address" className="w-[10rem]">Alamat</label>
+                        <label htmlFor="address" className="w-[10rem]"><span className="text-red-500">*</span>Alamat</label>
                         <textarea
                             {...register("address")}
                             name="address"
@@ -268,7 +259,7 @@ export const UserGeneralInformation = (
 
                     {/* birth date */}
                     <div className="flex items-center gap-x-3">
-                        <label htmlFor="birth_date" className="w-[10rem]">Tanggal Lahir</label>
+                        <label htmlFor="birth_date" className="w-[10rem]"><span className="text-red-500">*</span>Tanggal Lahir</label>
                         <input
                             {...register("birth_date")}
                             type="date"
@@ -287,7 +278,7 @@ export const UserGeneralInformation = (
                     {/* is verified */}
                     <div className="flex items-center gap-x-3">
                         <label htmlFor="is_verified" className="w-[10rem]">
-                            Sudah Diverifikasi
+                            <span className="text-red-500">*</span>Sudah Diverifikasi
                         </label>
                         {
                             !isLoading ? (
@@ -332,7 +323,6 @@ export const UserGeneralInformation = (
                             name="email_verified_at"
                             id="email_verified_at"
                             className="outline-none p-2 bg-white border-2 rounded-lg w-[18rem] border-gold-500"
-                            required
                         />
                     </div>
                     {errors.email_verified_at && (
@@ -341,6 +331,16 @@ export const UserGeneralInformation = (
                         </p>
                     )}
                 </div>
+                {Object.keys(errors).length > 0 && (
+                    <div className="text-red-500">
+                        Masukkan ada yang salah:
+                        <ul className="list-disc ml-5">
+                            {Object.entries(errors).map(([key, value]) => (
+                                <li key={key}>{key}: {value?.message as string}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 <div className="flex justify-end gap-2 mt-3 w-full">
                     <Button type="button" onClick={onCancel} className="px-4 py-2 w-[15rem] text-sm bg-gray-200 rounded hover:bg-gray-300 cursor-pointer">
                         Reset

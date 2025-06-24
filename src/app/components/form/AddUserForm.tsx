@@ -39,7 +39,7 @@ export const AddUserForm = () => {
             birth_date: "",
             role: "",
             is_verified: false,
-            email_verified_at: "2000-01-01",
+            email_verified_at: "",
             file: undefined
         },
     })
@@ -74,7 +74,9 @@ export const AddUserForm = () => {
         formData.append('birth_date', data.birth_date);
         formData.append('role', data.role);
         formData.append('is_verified', String(data.is_verified));
-        formData.append('email_verified_at', data.email_verified_at);
+        if (data.email_verified_at) {
+            formData.append('email_verified_at', data.email_verified_at);
+        }
         formData.append('gender', data.gender)
 
         mutation.mutate({ token, body: formData })
@@ -100,6 +102,16 @@ export const AddUserForm = () => {
             return;
         }
     })
+
+    const isGreaterThanToday = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedDate = new Date(e.target.value);
+        const today = new Date();
+        if (selectedDate > today) {
+            toast.error("Tanggal tidak boleh lebih dari hari ini");
+            e.target.value = "";
+            return;
+        }
+    }
 
     const onCancel = () => {
         reset({
@@ -129,16 +141,7 @@ export const AddUserForm = () => {
     return (
         <section className="flex flex-col w-full gap-y-7">
             <form className="w-full flex flex-col p-7 border shadow-xl rounded-xl gap-y-3" onSubmit={handleSubmit(onSubmit)}>
-                {Object.keys(errors).length > 0 && (
-                    <div className="text-red-500">
-                        Masukkan ada yang salah:
-                        <ul className="list-disc ml-5">
-                            {Object.entries(errors).map(([key, value]) => (
-                                <li key={key}>{key}: {value?.message as string}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                <span className="text-red-500">(*) simbol wajib diisi</span>
                 {/* Image */}
                 <div className="flex flex-col items-center justify-center w-full gap-y-4">
                     <div className="w-48 h-48 rounded-full overflow-hidden relative flex-shrink-0 p-3 bg-gray-100">
@@ -151,7 +154,10 @@ export const AddUserForm = () => {
                             priority
                         />
                     </div>
-                    <p className="text-sm text-red-500">Maksimal ukuran gambar 5MB</p>
+                    <div className="text-center">
+                        <p className="text-sm text-red-500">Maksimal ukuran gambar 5MB</p>
+                        <p className="text-sm text-red-500">Wajib diisi. Format yang didukung (.jpeg, .jpg, .png, .webp, .svg)</p>
+                    </div>
                     <label
                         htmlFor="file"
                         className="w-[8rem] bg-gold-500 p-2 rounded-md shadow-lg cursor-pointer hover:-translate-y-1 hover:scale-110 ease-in-out transition delay-150 duration-200 relative text-center">
@@ -162,6 +168,7 @@ export const AddUserForm = () => {
                         type="file"
                         name="file"
                         id="file"
+                        accept=".png, .jpeg, .webp, .jpg, .svg"
                         aria-label="tombol ubah foto profile"
                         className="w-fit hidden"
                         onChange={handleImageChange}
@@ -170,18 +177,18 @@ export const AddUserForm = () => {
                 <div className="flex flex-col w-full gap-y-3">
                     {/* name */}
                     <div className="flex items-center gap-x-3">
-                        <label htmlFor="name" className="w-[10rem]">Nama</label>
+                        <label htmlFor="name" className="w-[10rem]"><span className="text-red-500">*</span>Nama</label>
                         <input type="text" {...register("name")} id="name" placeholder="Masukkan nama pengguna" className="focus:outline-none p-2 bg-white border-2 border-gold-500 rounded-lg w-[18rem]" required />
                     </div>
-                    {errors.name && <p className="text-red-500 text-sm mb-2">{errors.name.message} </p>}
+                    {errors.name && <p className="text-red-500 text-sm w-[30rem] bg-red-100 font-bold rounded-xl p-2">{errors.name.message} </p>}
 
                     {/* email */}
                     <div className="flex items-center gap-x-3">
-                        <label htmlFor="email" className="w-[10rem]">Email</label>
+                        <label htmlFor="email" className="w-[10rem]"><span className="text-red-500">*</span>Email</label>
                         <input type="text" {...register("email")} id="email" placeholder="Masukkan email pengguna" className="focus:outline-none p-2 bg-white border-2 border-gold-500 rounded-lg w-[18rem]"
                             required />
                     </div>
-                    {errors.email && <p className="text-red-500 text-sm mb-2">{errors.email.message} </p>}
+                    {errors.email && <p className="text-red-500 text-sm w-[30rem] bg-red-100 font-bold rounded-xl p-2">{errors.email.message} </p>}
 
                     {/* password */}
                     <div className="max-w-[29rem] flex flex-row gap-4 bg-warning-50 p-1 items-center rounded-xl">
@@ -189,7 +196,7 @@ export const AddUserForm = () => {
                         <p className="text-sm font-federo font-normal text-gray-500">Pastikan kata sandi memiliki minimal 8 karakter, dengan huruf besar, huruf kecil, angka, dan simbol</p>
                     </div>
                     <div className="flex items-center gap-x-3 relative">
-                        <label htmlFor="password" className="w-[10rem]">Password</label>
+                        <label htmlFor="password" className="w-[10rem]"><span className="text-red-500">*</span>Password</label>
                         <div className="relative flex items-center w-[18rem]">
                             <input type={isShowPassword} {...register("password")} id="password" placeholder="Masukkan kata sandi pengguna" className="peer focus:outline-none p-2 pr-10 bg-white border-2 border-gold-500 rounded-lg w-[18rem]"
                                 required />
@@ -198,11 +205,11 @@ export const AddUserForm = () => {
                             </span>
                         </div>
                     </div>
-                    {errors.password && <p className="text-red-500 text-sm mb-2">{errors.password.message} </p>}
+                    {errors.password && <p className="text-red-500 text-sm w-[30rem] bg-red-100 font-bold rounded-xl p-2">{errors.password.message} </p>}
 
                     {/* phone number */}
                     <div className="flex items-center gap-x-3">
-                        <label htmlFor="phone_number" className="w-[10rem]">No telepon</label>
+                        <label htmlFor="phone_number" className="w-[10rem]"><span className="text-red-500">*</span>No telepon</label>
                         <input
                             {...register("phone_number")}
                             type="tel"
@@ -214,12 +221,12 @@ export const AddUserForm = () => {
                             required
                         />
                     </div>
-                    {errors.phone_number && <p className="text-red-500 text-sm mb-2">{errors.phone_number.message} </p>}
+                    {errors.phone_number && <p className="text-red-500 text-sm w-[30rem] bg-red-100 font-bold rounded-xl p-2">{errors.phone_number.message} </p>}
 
                     {/* role */}
                     <div className="flex items-center gap-x-3">
                         <label htmlFor="role" className="w-[10rem]">
-                            Role
+                            <span className="text-red-500">*</span>Role
                         </label>
                         <Controller
                             control={control}
@@ -251,7 +258,7 @@ export const AddUserForm = () => {
                     {/* gender */}
                     <div className="flex items-center gap-x-3">
                         <label htmlFor="role" className="w-[10rem]">
-                            Jenis kelamin
+                            <span className="text-red-500">*</span>Jenis kelamin
                         </label>
                         <Controller
                             control={control}
@@ -282,7 +289,7 @@ export const AddUserForm = () => {
 
                     {/* address */}
                     <div className="flex items-start gap-x-3">
-                        <label htmlFor="address" className="w-[10rem]">Alamat</label>
+                        <label htmlFor="address" className="w-[10rem]"><span className="text-red-500">*</span>Alamat</label>
                         <textarea
                             {...register("address")}
                             name="address"
@@ -302,13 +309,18 @@ export const AddUserForm = () => {
 
                     {/* birth date */}
                     <div className="flex items-center gap-x-3">
-                        <label htmlFor="birth_date" className="w-[10rem]">Tanggal Lahir</label>
+                        <label htmlFor="birth_date" className="w-[10rem]"><span className="text-red-500">*</span>Tanggal Lahir</label>
                         <input
-                            {...register("birth_date")}
+                            {...register("birth_date", {
+                                onChange: (e) => {
+                                    isGreaterThanToday(e);
+                                }
+                            })}
                             type="date"
                             name="birth_date"
                             id="birth_date"
                             className="outline-none p-2 bg-white border-2 rounded-lg w-[18rem] border-gold-500"
+                            onChange={isGreaterThanToday}
                             required
                         />
                     </div>
@@ -321,7 +333,7 @@ export const AddUserForm = () => {
                     {/* is verified */}
                     <div className="flex items-center gap-x-3">
                         <label htmlFor="role" className="w-[10rem]">
-                            Sudah Diverifikasi
+                            <span className="text-red-500">*</span>Sudah Diverifikasi
                         </label>
                         <Controller
                             control={control}
@@ -354,20 +366,34 @@ export const AddUserForm = () => {
                     <div className="flex items-center gap-x-3">
                         <label htmlFor="email_verified_at" className="w-[10rem]">Tanggal Diverifikasi</label>
                         <input
-                            {...register("email_verified_at")}
+                            {...register("email_verified_at", {
+                                onChange: (e) => {
+                                    isGreaterThanToday(e);
+                                }
+                            })}
                             type="date"
                             name="email_verified_at"
                             id="email_verified_at"
                             className="outline-none p-2 bg-white border-2 rounded-lg w-[18rem] border-gold-500"
-                            required
+                            onChange={isGreaterThanToday}
                         />
                     </div>
                     {errors.email_verified_at && (
-                        <p className="text-red-500 text-sm bg-red-100 font-bold rounded-xl p-2">
+                        <p className="text-red-500 text-sm w-[30rem] bg-red-100 font-bold rounded-xl p-2">
                             {errors.email_verified_at.message}
                         </p>
                     )}
                 </div>
+                {Object.keys(errors).length > 0 && (
+                    <div className="text-red-500">
+                        Masukkan ada yang salah:
+                        <ul className="list-disc ml-5">
+                            {Object.entries(errors).map(([key, value]) => (
+                                <li key={key}>{key}: {value?.message as string}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 <div className="flex justify-end gap-2 mt-3 w-full">
                     <Button type="button" onClick={onCancel} className="px-4 py-2 w-[15rem] text-sm bg-gray-200 rounded hover:bg-gray-300 cursor-pointer">
                         Reset

@@ -18,7 +18,7 @@ export const SelectInputType = (
     return (
         <div className="flex items-center gap-x-3">
             <label htmlFor={inputName} className="w-[10rem]">
-                {label}
+                <span className="text-red-500">*</span>{label}
             </label>
             {!isLoading ? (
                 <Controller
