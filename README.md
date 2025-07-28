@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aplikasi Front-End Website Admin Addo Salon
 
-## Getting Started
+## Profil Developer
 
-First, run the development server:
+Fakhri Fajar Ramadhan <br>
+140810210046 <br>
+Teknik Informatika Unpad <br>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Deskripsi Aplikasi
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Repositori ini menyediakan tampilan antar muka dan fungsionalitas end-to-end user untuk admin Addo Salon
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tujuan
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Menyediakan fungsionalitas untuk mengelola data-data salon, seperti data pegawai, pengguna, layanan, pesanan, dan transaksi
 
-## Learn More
+## Fitur Aplikasi
 
-To learn more about Next.js, take a look at the following resources:
+- Autentikasi: Sistem login dengan JWT token dan session management
+- Data management: Fitur untuk mengelola data yang penting untuk salon
+- Operasi CRUD: Fitur tambah, edit, hapus, dan membaca data pengguna, layanan, pesanan, transaksi, dan pegawai
+- Dashboard: Fitur untuk menyediakan data-data penting di halaman dashboard admin
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Teknologi yang Digunakan
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- NextJs: Framework front-end berbasis ReactJs
+- Tailwind CSS: Library CSS untuk membuat tampilan
+- Tanstack Query: Fetching data management
+- Axios: Library untuk melakukan permintaan HTTP
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Saat ini aplikasi front-end di-deploy di Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Kebutuhan Environment Variables
+
+NEXT_PUBLIC_BASE_URL=<br>
+NEXT_PUBLIC_LOGIN_ENDPOINT=<br>
+NEXT_PUBLIC_USER_ENDPOINT=<br>
+NEXT_PUBLIC_REVIEWS_ENDPOINT=<br>
+NEXT_PUBLIC_CATEGORIES_ENDPOINT=<br>
+NEXT_PUBLIC_PRODUCTS_ENDPOINT=<br>
+NEXT_PUBLIC_CARTS_ENDPOINT=<br>
+NEXT_PUBLIC_SCHEDULES_ENDPOINT=<br>
+NEXT_PUBLIC_TRANSACTION_ENDPOINT=<br>
+NEXT_PUBLIC_DASHBOARD_ENDPOINT=<br>
+NEXT_PUBLIC_EMPLOYEE_ENDPOINT=<br>
+
+NEXT_PUBLIC_TOKEN_EXPIRES_IN=<br>
+NEXT_PUBLIC_TOKEN_SECURE=<br>
+
